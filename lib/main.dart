@@ -2,7 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:just_audio/just_audio.dart';
 
+// For debugging
+import 'dart:developer';
+
 void main() => runApp(const MyApp());
+  // WebSocketChannel? channel;                    //initialize a websocket channel
+  // bool isWebsocketRunning = false;
+  // final channel = IOWebSocketChannel.connect('ws://127.0.0.1:8000/ws/music/');
+  // channel.stream.listen((message) {
+  //   channel.sink.add('received!');
+  //   channel.sink.close(status.goingAway);
+  // });
+//   if (isWebsocketRunning) return;            //check if socket running
+//   var url = 'ws://10.0.2.2:8000/ws/music/';
+//   channel = WebSocketChannel.connect(
+//     Uri.parse(url),                           //connect to a websocket
+//   );
+//   channel.stream.listen(
+//           (event) {
+//         print(json.decode(event));
+//       },
+//       onDone: () {
+//         isWebsocketRunning = false;
+//       },
+//       onError: (error) {
+//         debugPrint('ws error $error');
+//       }
+//
+//   );
+// }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -39,9 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
     player = AudioPlayer();
   }
 
-  final TextEditingController _controller = TextEditingController();
+  // final TextEditingController _controller = TextEditingController();
   final _channel = WebSocketChannel.connect(
-    Uri.parse('wss://echo.websocket.events'),
+    Uri.parse('ws://10.0.2.2:8000/ws/music/'),
   );
 
   @override
@@ -59,7 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
             StreamBuilder(
               stream: _channel.stream,
               builder: (context, snapshot) {
-                return Text(snapshot.hasData ? '${snapshot.data}' : '');
+                log('channel data: ${snapshot.data}');
+                return Text(snapshot.hasData ? '${snapshot.data}' : 'error');
               },
             ),
             SizedBox(width: 10),
