@@ -130,15 +130,15 @@ class _MyHomePageState extends State<MyHomePage> {
             //     return Text(snapshot.hasData ? '${snapshot.data}' : 'error');
             //   },
             // ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             ElevatedButton(
               onPressed: () async {
-                await player.setAsset('assets/oom.wav');
+                await player.setUrl('http://10.0.2.2:8000/api/send/');
                 player.play();
               },
               child: Text('Play'),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             ElevatedButton(
               onPressed: () async {
                 final response = await http
@@ -151,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //   //await player.setAsset('assets/oom.mp3');
               //   player.pause();
               // },
-              child: Text('Pause'),
+              child: const Text('Pause'),
             ),
             // FutureBuilder(
             //   future: getRequest(),
